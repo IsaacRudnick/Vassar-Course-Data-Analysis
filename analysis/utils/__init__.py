@@ -1,2 +1,2 @@
-# Allows for importing of utils from other directories
+# Allows for importing from other directories of these utils
 # Stays blank
