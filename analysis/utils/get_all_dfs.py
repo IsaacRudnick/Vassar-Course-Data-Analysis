@@ -2,12 +2,12 @@ import pandas as pd
 import os
 
 
-def get_all_dfs(path: str, combine_years=False) -> list[pd.DataFrame]:
+def get_all_dfs(path: str, by_year=False) -> list[pd.DataFrame]:
     """Read in all dataframes from csv files in path folder
 
     Args:
         path (str): The path to the folder containing the csv files
-        combine_years (bool, optional): Whether or not to combine all courses from the same year into one dataframe.
+        by_year (bool, optional): Whether or not to combine all courses from the same year into one dataframe.
         If this is enabled, then the function will return a dictionary of dataframes with keys as year labels.
         Otherwise, the function will return a dictionary of dataframes with keys as semester labels. 
         Defaults to False.
@@ -28,7 +28,7 @@ def get_all_dfs(path: str, combine_years=False) -> list[pd.DataFrame]:
             sem_name = f"{filename[0:4]}_{filename[4:6]}"
             semesters[sem_name] = pd.read_csv(f)
 
-    if combine_years:
+    if by_year:
         # Combine all semesters from the same year into one dataframe
         # Return dictionary of dataframes with keys as year labels
         years = {}
