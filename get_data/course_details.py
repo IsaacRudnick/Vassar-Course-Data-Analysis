@@ -5,25 +5,31 @@ lookups = {}
 # dept - Department (same as DEPT in courseID)
 # title - Course title (e.g. 'Introduction to Computer Science')
 
-# units - Number of units (e.g. 1.0 or 0.5)
-# sp - Special permission required (either True or False)
-# max_enr - Maximum enrollment (e.g. 30)
-# enr - Current enrollment (e.g. 30)
-# avl - Available seats (e.g. 0)
-# wl - Waitlist (e.g. 0)
+# division - The division of the course.
+lookups['division'] = {'AR': 'Arts', 'FL': 'Foreign Language', 'IP': 'Independent', 'IS': 'Multi/Interdisciplinary', 'NS': 'Natural Science', 'SS': 'Social Science'}
+# courselength - See below except keys are ints (1, 2, 3 not '1', '2', and '3')
+lookups['courselength'] = {'1': 'Full Semester', '2': 'First Six-Week Course', '3': 'Second Six-Week Course'}
+
+# units - Number of units (i.e. 1.0 or 0.5)
+
+# sp - Special permission required (Boolean)
+# max_enr - Maximum enrollment (int)
+# enr - Current enrollment (int)
+# avl - Available seats (int)
+# wl - Waitlist (int)
 # gm - Grade Modes (below)
 lookups['gm'] = {'NR': 'Non-Recorded Option', 'SU': 'Ungraded'}
 
-# yl - Year Long (either True or False)
-# pr - Provisional Grades (either True or False)
-# fr - First Year Writing Seminar (either True or False)
-# la - Language Course (either True or False)
-# qa - Quantitative Course (either True or False)
-# prereq - Has a prerequisite (either True or False)
+# yl - Year Long (Boolean)
+# pr - Provisional Grades (Boolean)
+# fr - First Year Writing Seminar (Boolean)
+# la - Language Course (Boolean)
+# qa - Quantitative Course (Boolean)
+# prereq - Has a prerequisite (Boolean)
 
 # format - Format of course. Either 'CLS' (for 'Classroom') or 'INT' (for 'Intensive') or 'OTH' (for 'Other')
 lookups['format'] = {'CLS': 'Classroom', 'INT': 'Intensive', 'OTH': 'Other'}
-# xlist - Department with which this course is cross-listed (e.g. 'XCMPU' or 'XCMPU/MATH' if multiple) note 'X' prefix
+# xlist - Department(s) with which this course is cross-listed (e.g. 'XCMPU' or 'XCMPU/MATH' if multiple)
 
 # --- Below is all scheduling-related information ---#
 lookups['days'] = {'M': 'Monday', 'T': 'Tuesday', 'W': 'Wednesday', 'R': 'Thursday', 'F': 'Friday'}
@@ -43,7 +49,7 @@ lookups['days'] = {'M': 'Monday', 'T': 'Tuesday', 'W': 'Wednesday', 'R': 'Thursd
 # --- This ends scheduling information ---#
 
 # instructor - Instructor of the course
-# description - Long format description of the course. Only available from ScheduleBrewer or Catalog
+# lab_instructor - Instructor of the lab (if applicable). This instructor is the instructor of the second meeting time. See scheduling information above
 
 # --- Below are only applicable / available during registration and pre-registration periods ---#
 # limits - # of students from each grade allowed to enroll in the course. Format: (SR/JR/SO/FR) (e.g. '5/5/5/5')
@@ -51,8 +57,5 @@ lookups['days'] = {'M': 'Monday', 'T': 'Tuesday', 'W': 'Wednesday', 'R': 'Thursd
 # offered - whether the course is still open
 # --- This ends pre-registration information ---#
 
-# division - The division of the course.
-lookups['division'] = {'AR': 'Arts', 'FL': 'Foreign Language', 'IP': 'Independent', 'IS': 'Multi/Interdisciplinary', 'NS': 'Natural Science', 'SS': 'Social Science'}
-# courselength - See below except keys are ints (1, 2, 3 not '1', '2', and '3')
-lookups['courselength'] = {'1': 'Full Semester', '2': 'First Six-Week Course', '3': 'Second Six-Week Course'}
-# notes
+# The below is disabled (not provided) by default. See README.md in this folder for more information
+# description - Long format description of the course.

@@ -7,9 +7,18 @@ import csv
 import parse_course as pc
 
 
-def get_courses(session: str):
-    # Get the page. If form data (session) is sent as .
-    data = f"session={session}&dept=&instr=&type=&day=&time=&unit=&format=&division_search=&crse_level_search=&submit=Submit"
+def get_courses(semesterID: str) -> list[dict]:
+    """Take a semesterID and return a list of courses for that semester in dictionary format
+    See course_details.py and parse_course.py for more info on the dictionary format
+
+    Args:
+        semesterID (str): the semesterID in the form of YYYYSS (e.g. 202103 for Spring 2021)
+
+    Returns:
+        list[dict]: a list of courses for the given semesterID
+    """
+    # Get the page. If form data (semester) is sent as anything else (e.g. JSON) it may not work.
+    data = f"session={semesterID}&dept=&instr=&type=&day=&time=&unit=&format=&division_search=&crse_level_search=&submit=Submit"
     page = requests.post("https://aisapps.vassar.edu/cgi-bin/courses.cgi", data=data)
 
     # Get all divs
@@ -32,7 +41,13 @@ def get_courses(session: str):
     return processed_courses
 
 
-def save_courses_for_sem(semester, path):
+def save_courses_for_sem(semesterID: str, path) -> None:
+    """Save the courses for a given semester to a CSV file at the given path
+
+    Args:
+        semesterID (_type_): _description_
+        path (_type_): _description_
+    """
     all_courses = get_courses(semester)
     print(f"Found {len(all_courses)} courses for {semester}")
     # Write to CSV

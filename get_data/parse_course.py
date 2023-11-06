@@ -2,30 +2,40 @@ import re
 import course_details
 
 
-def parse_course(raw_course):
+def parse_course(raw_course: str) -> dict:
+    """Parses raw course text block into a dictionary of course details
+
+    Args:
+        raw_course (str): the contents of a course element from the AskBanner website
+
+    Returns: a dictionary of course details (overview below, more details in course_details.py)
+
+    """
     course = {}
-    course['courseID'] = courseID_from_rc(raw_course)
-    course['dept'] = dept_from_rc(raw_course)
-    course['title'] = title_from_rc(raw_course)
-    course['units'] = units_from_rc(raw_course)
-    course['sp'] = special_permission_from_rc(raw_course)
-    course['max_enr'] = max_enrollment_from_rc(raw_course)
-    course['enr'] = enrollment_from_rc(raw_course)
-    course['avl'] = available_seats_from_rc(raw_course)
-    course['wl'] = waitlist_from_rc(raw_course)
-    course['gm'] = grade_mode_from_rc(raw_course)
-    course['yl'] = year_long_from_rc(raw_course)
-    course['pr'] = provisional_grades_from_rc(raw_course)
-    course['fr'] = first_year_writing_from_rc(raw_course)
-    course['la'] = language_course_from_rc(raw_course)
-    course['qa'] = quantitative_course_from_rc(raw_course)
-    course['prereq'] = has_prerequisite_from_rc(raw_course)
-    course['format'] = format_from_rc(raw_course)
-    course['xlist'] = xlist_from_rc(raw_course)
-    timing = timing_from_rc(raw_course)
+    # SEE course_details.py for more info on each key
+    course['courseID'] = courseID_from_rc(raw_course)  # courseID is a unique identifier for each course
+    course['dept'] = dept_from_rc(raw_course)  # dept is the department that offers the course
+    course['title'] = title_from_rc(raw_course)  # title is the name of the course
+    course['units'] = units_from_rc(raw_course)  # units is the number of units the course is worth
+    course['sp'] = special_permission_from_rc(raw_course)  # sp is whether the course requires special permission
+    course['max_enr'] = max_enrollment_from_rc(raw_course)  # max_enr is the maximum number of students that can enroll in the course
+    course['enr'] = enrollment_from_rc(raw_course)  # enr is the number of students enrolled in the course while it ran
+    course['avl'] = available_seats_from_rc(raw_course)  # avl is the number of seats available in the course
+    course['wl'] = waitlist_from_rc(raw_course)  # wl is the number of students on the waitlist for the course
+    course['gm'] = grade_mode_from_rc(raw_course)  # gm is the grade mode of the course (NR, SU, or None)
+    course['yl'] = year_long_from_rc(raw_course)  # yl is whether the course is year-long
+    course['pr'] = provisional_grades_from_rc(raw_course)  # pr is whether the course uses provisional grades
+    course['fr'] = first_year_writing_from_rc(raw_course)  # fr is whether the course is a first-year writing course
+    course['la'] = language_course_from_rc(raw_course)  # la is whether the course is a language course
+    course['qa'] = quantitative_course_from_rc(raw_course)  # qa is whether the course is a quantitative course (satisfies QA req)
+    course['prereq'] = has_prerequisite_from_rc(raw_course)  # prereq is whether the course has a prerequisite
+    course['format'] = format_from_rc(raw_course)  # format is the format of the course (CLS, INT, or OTH)
+    course['xlist'] = xlist_from_rc(raw_course)  # xlist is the cross-listed course (if any)
+    timing = timing_from_rc(raw_course)  # timing is the timing of the course (d1, time1, starttime1, endtime1, duration1, loc1, d2, time2, starttime2, endtime2, duration2, loc2)
     # Add all timing keys and values to course
     for key, value in timing.items():
         course[key] = value
+
     course['instructor'] = instructor_from_rc(raw_course)
     course['lab_instructor'] = lab_instructor_from_rc(raw_course)
     # course['description'] = description_from_rc(raw_course)
@@ -195,12 +205,13 @@ def timing_from_rc(raw_course):
 
 
 def instructor_from_rc(raw_course):
-    # Only accept matches after the course type to avoid courses w/ names that look like instructors' names. 
+    # Only accept matches after the course type to avoid courses w/ names that look like instructors' names.
     # (e.g. "Language, Empires, Nations" would otherwise match "Languages, Empires" as the name)
     pattern = r'(CLS|INT|OTH).*([A-Z][A-Za-z]*, [A-Z][A-Za-z]*)'
     match = re.search(pattern, raw_course)
     # Some courses have no instructor (e.g. CEL courses) see: https://offices.vassar.edu/community-engaged-learning/
     return match.group(2) if match else None
+
 
 def lab_instructor_from_rc(raw_course):
     pattern = r'[A-Z][A-Za-z]*, [A-Z][A-Za-z]*'
