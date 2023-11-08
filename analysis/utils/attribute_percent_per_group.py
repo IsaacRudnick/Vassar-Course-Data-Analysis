@@ -58,7 +58,7 @@ def attribute_per_group(course_has_attribute: function, group_from_course: funct
 
     average = sum(data.values()) / len(data.values())
     plt.axhline(y=average, color="red", linestyle="-",
-                label="Average % {attribute_descr}")
+                label=f"Average % {attribute_descr}")
     leg = plt.legend(loc='upper left')
 
     # Show percentage on top of each bar
