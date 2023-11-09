@@ -23,7 +23,7 @@ Because GitHub will show the output of these cells, this works as a library of p
 
 Handles scraping of the Vassar College schedule and saving the data to a JSON Object or CSV file. This is an overview of the provided files:
 
-- `ab_courses_to_csv.py` - Allows for scraping of the Vassar College schedule and saving the data to a CSV file.
+- `ab_sem_to_csv.py` - Allows for scraping of the Vassar College schedule and saving the data to a CSV file.
   Call `save_courses_for_sem(semester, path)` using the semester (YYYYSS) (where SS is 01: Spring 02: Summer, or 03: Fall) and path to save the data to a CSV file. Parses with:
 
 - `parse_course.py` which handles the processing of the `raw_course` text block provided by webscraping

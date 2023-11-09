@@ -10,7 +10,7 @@ Check the `deprecated/sb_courses_to_csv.py` file. This file is deprecated becaus
 
 ## I want the data for a specific semester
 
-Check the `ab_courses_to_csv.py` file. This file allows for scraping of any semester, but the data parsing (done in `parse_course.py`) may be confusing. This is because the info provided by AskBanner for each course is a block of text that frequently has missing values, edge cases, and more, which requires complicated [Regular Expressions](https://en.wikipedia.org/wiki/Regular_expression) to parse robustly and effectively.
+Check the `ab_sem_to_csv.py` file. This file allows for scraping of any semester, but the data parsing (done in `parse_course.py`) may be confusing. This is because the info provided by AskBanner for each course is a block of text that frequently has missing values, edge cases, and more, which requires complicated [Regular Expressions](https://en.wikipedia.org/wiki/Regular_expression) to parse robustly and effectively.
 
 ## I want the data for all (or many) semesters
 
