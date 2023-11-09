@@ -2,8 +2,6 @@ import matplotlib.pyplot as plt
 from utils.get_recent_sem import *
 from types import FunctionType as function
 
-courses = get_recent_sem("courses")
-
 
 def attribute_per_group(course_has_attribute: function, group_from_course: function, attribute_descr: str, group_descr: str):
     """Generates a bar chart showing the percentage of courses in each group that have a given attribute.
@@ -17,6 +15,9 @@ def attribute_per_group(course_has_attribute: function, group_from_course: funct
         attribute_descr (str): A description of the attribute being analyzed for labelling bar chart.
         group_descr (str): A description of the group being analyzed for labelling bar chart.
     """
+
+    courses = get_recent_sem("courses")
+
     # Format: {group: [attribute_count, total_count], ...}
     group_course_info = {}
 
