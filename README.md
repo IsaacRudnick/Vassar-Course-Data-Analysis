@@ -8,7 +8,7 @@ Because GitHub will show the output of these cells, this works as a library of p
 (assuming use of bulk_save_sems to save all available semesters, as opposed to using an individual util for smaller-scale scraping)
 
 - The scraper uses the [requests](https://pypi.org/project/requests/) library to get the HTML of the schedule page, and then uses [BeautifulSoup](https://pypi.org/project/beautifulsoup4/) to parse the HTML.
-- The scraper then uses `re` to find the `raw_course` text block, which contains all the course data in a single string.
+- The scraper then uses [regular expressions](https://www.w3schools.com/python/python_regex.asp) to find the `raw_course` text block, which contains all the course data in a single string.
 - The scraper then uses `parse_course.py` to parse the `raw_course` string into a list of `Course` objects.
 - The scraper then uses `csv` to save the list of `Course` objects to a CSV file.
 
