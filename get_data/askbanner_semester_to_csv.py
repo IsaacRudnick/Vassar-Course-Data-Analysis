@@ -4,7 +4,7 @@
 import requests
 from bs4 import BeautifulSoup
 import csv
-import parse_course as pc
+from parse_single_course import parse_course
 
 
 def get_courses(semesterID: str) -> list[dict]:
@@ -19,7 +19,8 @@ def get_courses(semesterID: str) -> list[dict]:
     """
     # Get the page. If form data (semester) is sent as anything else (e.g. JSON) it may not work.
     data = f"session={semesterID}&dept=&instr=&type=&day=&time=&unit=&format=&division_search=&crse_level_search=&submit=Submit"
-    page = requests.post("https://aisapps.vassar.edu/cgi-bin/courses.cgi", data=data)
+    page = requests.post(
+        "https://aisapps.vassar.edu/cgi-bin/courses.cgi", data=data)
 
     # Get all divs
     soup = BeautifulSoup(page.content, 'html.parser')
@@ -29,7 +30,7 @@ def get_courses(semesterID: str) -> list[dict]:
     for div_course in div_courses:
         raw_course = div_course.text
         try:
-            course = pc.parse_course(raw_course)
+            course = parse_course(raw_course)
         except Exception as e:
             print(f"Error parsing course: {e}")
             print(f"Raw course: {raw_course}")
@@ -48,8 +49,8 @@ def save_courses_for_sem(semesterID: str, path) -> None:
         semesterID (_type_): _description_
         path (_type_): _description_
     """
-    all_courses = get_courses(semester)
-    print(f"Found {len(all_courses)} courses for {semester}")
+    all_courses = get_courses(semesterID)
+    print(f"Found and downloading {len(all_courses)} courses for {semesterID}")
     # Write to CSV
     keys = all_courses[0].keys()
     with open(path, 'w', newline='', encoding='utf-8') as output_file:

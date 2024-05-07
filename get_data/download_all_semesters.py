@@ -1,7 +1,7 @@
 import os
 import requests
 from bs4 import BeautifulSoup
-import ab_sem_to_csv as dl_courses  # For downloading courses
+import askbanner_semester_to_csv as dl_courses  # For downloading courses
 
 
 def get_valid_semester_ids() -> list[str]:
@@ -16,7 +16,7 @@ def get_valid_semester_ids() -> list[str]:
     # Get all option elements in the <select name="session"> element
     options = soup.find('select', {'name': 'session'}).find_all('option')
     # Get the value attribute of each option element
-    semesters = [o['value'] for o in options]
+    semesters = [option['value'] for option in options]
 
     return semesters
 
@@ -32,7 +32,8 @@ def bulk_save_semesters(semesterIDs: list[str], directory: str) -> None:
         os.mkdir(directory)
 
     for semesterID in semesterIDs:
-        dl_courses.save_courses_for_sem(semester, os.path.join(directory, f'{semesterID}.csv'))
+        dl_courses.save_courses_for_sem(
+            semesterID, os.path.join(directory, f'{semesterID}.csv'))
 
 
 if __name__ == "__main__":
