@@ -1,28 +1,5 @@
 import re
-
-fields_positions = {
-    'courseID': 0,
-    'title': 13,
-    'units': 44,
-    'sp': 50,
-    'max': 53,
-    'enr': 57,
-    'avl': 61,
-    'wl': 65,
-    'gm': 69,
-    'yl': 74,
-    'pr': 77,
-    'fr': 80,
-    'la': 83,
-    'qa': 86,
-    'format': 89,
-    'xlist': 96,
-    'd1': 112,
-    'time1': 118,
-    'd2': 134,
-    'time2': 118,
-    'loc': 134,
-    'instructor': 145}
+from get_indexes import fields_positions
 
 
 def parse_course(raw_course: str) -> dict:

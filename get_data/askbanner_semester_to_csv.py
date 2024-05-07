@@ -1,10 +1,13 @@
 # Save all courses for a given semester to a CSV file
 # Uses askBanner to get the courses, allowing for parsing of any semester
 
-import requests
-from bs4 import BeautifulSoup
-import csv
 from parse_single_course import parse_course
+import csv
+from bs4 import BeautifulSoup
+import requests
+
+# This is the delimiter used in the CSV file. It is a comma by default, but '\t' could be used for a .tsv
+DELIMETER = ','
 
 
 def get_courses(semesterID: str) -> list[dict]:
@@ -50,10 +53,10 @@ def save_courses_for_sem(semesterID: str, path) -> None:
         path (_type_): _description_
     """
     all_courses = get_courses(semesterID)
-    print(f"Found and downloading {len(all_courses)} courses for {semesterID}")
+    print(f"Found & downloading {len(all_courses)} listings for {semesterID}")
     # Write to CSV
     keys = all_courses[0].keys()
     with open(path, 'w', newline='', encoding='utf-8') as output_file:
-        dict_writer = csv.DictWriter(output_file, keys)
+        dict_writer = csv.DictWriter(output_file, keys, delimiter=DELIMETER)
         dict_writer.writeheader()
         dict_writer.writerows(all_courses)

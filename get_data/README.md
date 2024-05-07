@@ -1,17 +1,33 @@
 # Getting Data
 
-## What data is available?
+The easiest way to get the data for all semesters is to run `download_all_semesters.py`. This script will download all the data for all semesters and save it in the `../analysis/courses/` directory. Each semester will be saved in a separate .csv file, with the semester name as the filename. Note that semesters are '01' for spring or '03' for fall (e.g., the fall semester of 2022 is '202203').
 
-The data is available as defined in `course_details.py`
+Each row is a course with the following information:
 
-## I want the data for a specific / the latest semester
+- courseID
+- title
+- units
+- special_permission_required
+- max_spots
+- enrolled_students
+- available_seats
+- waitlisted_students
+- grade_mode
+- yearlong
+- provisional_grades
+- first_year_writing_seminar
+- language_course
+- quantitative_course
+- has_prerequisite
+- format
+- division
+- department
+- cross_list
+- days_of_week
+- time
+- location
+- instructor
+- crn
 
-Use the `askbanner_semester_to_csv.py` file's `get_courses(semesterID: str) -> list[dict]` function.
-
-## I want the data for all (or many) semesters
-
-Run `download_all_semesters.py`. This file will save every available semester as a separate csv file.
-
-## Where is the course description?
-
-Because many courses don't provide a description, it is not included in the files. If you want it included anyway, you can modify the `parse_course.py` file.
+However, not all of this information is available for each course. For example, some courses do not have a location or time. Courses with no name are generally lab sections of the course one row above it.
+To see more information about the data, click 'Submit' on the [course request site](https://aisapps.vassar.edu/cgi-bin/geninfo.cgi) to see the key (top right).
